@@ -4,7 +4,7 @@ Config = {}
 Config.FiveguardName = "your-fiveguard-file-name" -- fiveguard resource file name 
 Config.RecordPlayer = true -- true or false
 Config.WebhookURL = "your-webhook-here" -- The video will be sent to this URL, can be useful for review.
-Config.RecordTime = 3000 -- 3000 = 3sec
+Config.RecordTime = 1500 -- 1500 = 1.5sec
 
 
 
