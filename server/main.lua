@@ -17,7 +17,7 @@ AddEventHandler("madebyunkki::ban", function(reason)
                 print("Screenshot failed for player: " .. src)
             end
             isRecording[src] = false
-        end, Config.WebhookURL)
+        end, Config.Webhook)
     else
         exports[Config.FiveguardName]:fg_BanPlayer(src, banReason, true)
         isRecording[src] = false
