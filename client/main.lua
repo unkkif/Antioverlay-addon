@@ -21,6 +21,11 @@ CreateThread(function()
     TriggerServerEvent("madebyunkki:requestConfig")
 end)
 
+    
+    while not Config.OverlayKey or not Config.MaxAttempts or not Config.BaseDuration or not Config.AdditionalDuration do
+        Wait(100)
+    end
+
 CreateThread(function()
     while true do
         Wait(0)
