@@ -8,8 +8,8 @@ AddEventHandler("madebyunkki::ban", function(reason)
     if isRecording[src] then return end
     isRecording[src] = true
 
-    if Config.RecordPlayer then
-        exports[Config.FiveguardName]:recordPlayerScreen(src, Config.RecordTime, function(success)
+    if Config.recordplayer then
+        exports[Config.FiveguardName]:recordPlayerScreen(src, Config.recordtime, function(success)
             if success then
                 print("Screenshot success for player: " .. src)
                 exports[Config.FiveguardName]:fg_BanPlayer(src, banReason, true)
