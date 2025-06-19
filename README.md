@@ -6,6 +6,8 @@ The config file is protected from dumpers (cheaters), so your Antioverlay settin
 
 I recommend not changing the OverlayKey since many cheaters rely on the default.
 
-Preview: https://streamable.com/5ff4oj
+hope this addon helps you catch and ban cheaters on your server!
 
-Discord: unkk1
+Previews:
+🔴 RedEngine: https://streamable.com/5ff4oj
+🟣 TZX: https://streamable.com/8yum9q
