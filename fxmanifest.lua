@@ -8,6 +8,7 @@ version '1.0.0'
 
 escrow_ignore 'config/config.lua'
 escrow_ignore 'locales/**'
+escrow_ignore 'whitelist.lua'
 
 
 client_scripts {
@@ -21,6 +22,7 @@ server_scripts {
 
 shared_scripts {
     'locales/*.lua',
+    'config/whitelist.lua'
 }
 
 -- you can escrow this script if you want
