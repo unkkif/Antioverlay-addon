@@ -1,3 +1,4 @@
+local isWhitelisted = false
 local isOverlayBlockActive = false
 local mouseMoveAttempts = 0
 
@@ -8,30 +9,34 @@ local Config = {
     AdditionalDuration = nil,
 }
 
-RegisterNetEvent("madebyunkki:sendConfig")
-AddEventHandler("madebyunkki:sendConfig", function(config)
-    Config.OverlayKey = config.OverlayKey
-    Config.MaxAttempts = config.MaxAttempts
-    Config.BaseDuration = config.BaseDuration
-    Config.AdditionalDuration = config.AdditionalDuration
+RegisterNetEvent("madebyunkki:sendConfig", function(config)
+    Config = config
+end)
+
+RegisterNetEvent("madebyunkki:setWhitelistStatus", function(status)
+    isWhitelisted = status
 end)
 
 CreateThread(function()
     while not NetworkIsSessionStarted() do Wait(0) end
     TriggerServerEvent("madebyunkki:requestConfig")
+    TriggerServerEvent("madebyunkki:checkWhitelist")
 end)
 
-    
+CreateThread(function()
     while not Config.OverlayKey or not Config.MaxAttempts or not Config.BaseDuration or not Config.AdditionalDuration do
         Wait(100)
     end
 
-CreateThread(function()
     while true do
         Wait(0)
-        if Config.OverlayKey and IsPedStill(PlayerPedId()) and IsControlJustPressed(0, Config.OverlayKey) then
+        if isWhitelisted then goto continue end
+
+        if IsPedStill(PlayerPedId()) and IsControlJustPressed(0, Config.OverlayKey) then
             TriggerEvent("madebyunkki::startOverlayChecking")
         end
+
+        ::continue::
     end
 end)
 
