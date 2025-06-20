@@ -14,7 +14,7 @@ Config.MaxAttempts = 5
 -- Maximum number of allowed mouse movement attempts during the overlay check.
 -- If the player moves the mouse too many times, they will be banned.
 
-Config.BaseDuration = 5000 -- A value set too high can result in false bans. We recommend keeping it below 5000ms.
+Config.BaseDuration = 5000 -- A value set too high can result in false bans. I recommend keeping it below 5000ms.
 -- The base duration of the overlay protection in milliseconds (5000 ms = 5 seconds).
 -- This defines how long the overlay detection remains active before it automatically stops.
 
