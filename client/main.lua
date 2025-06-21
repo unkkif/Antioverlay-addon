@@ -3,7 +3,7 @@ local isOverlayBlockActive = false
 local mouseMoveAttempts = 0
 
 local Config = {
-    OverlayKey = nil,
+    OverlayKey = nil,        
     MaxAttempts = nil,
     BaseDuration = nil,
     AdditionalDuration = nil,
@@ -23,8 +23,24 @@ CreateThread(function()
     TriggerServerEvent("madebyunkki:checkWhitelist")
 end)
 
+local function IsAnyOverlayKeyPressed()
+    if type(Config.OverlayKey) == "table" then
+        for _, key in ipairs(Config.OverlayKey) do
+            if IsControlJustPressed(0, key) then
+                return true
+            end
+        end
+        return false
+    else
+        return IsControlJustPressed(0, Config.OverlayKey)
+    end
+end
+
 CreateThread(function()
-    while not Config.OverlayKey or not Config.MaxAttempts or not Config.BaseDuration or not Config.AdditionalDuration do
+    while type(Config.OverlayKey) ~= "number" and type(Config.OverlayKey) ~= "table" or
+          type(Config.MaxAttempts) ~= "number" or
+          type(Config.BaseDuration) ~= "number" or
+          type(Config.AdditionalDuration) ~= "number" do
         Wait(100)
     end
 
@@ -32,7 +48,7 @@ CreateThread(function()
         Wait(0)
         if isWhitelisted then goto continue end
 
-        if IsPedStill(PlayerPedId()) and IsControlJustPressed(0, Config.OverlayKey) then
+        if IsPedStill(PlayerPedId()) and IsAnyOverlayKeyPressed() then
             TriggerEvent("madebyunkki::startOverlayChecking")
         end
 
@@ -49,6 +65,8 @@ RegisterNetEvent('madebyunkki::startOverlayChecking', function()
     local startTime = GetGameTimer()
     local endTime = startTime + Config.BaseDuration
 
+    SetCursorLocation(targetX, targetY)
+
     CreateThread(function()
         while isOverlayBlockActive do
             Wait(300)
@@ -56,12 +74,12 @@ RegisterNetEvent('madebyunkki::startOverlayChecking', function()
             local currentTime = GetGameTimer()
             local mouseX, mouseY = GetNuiCursorPosition()
 
-            if mouseX > 100 or mouseY > 100 then
+            if mouseX > 0.1 or mouseY > 0.1 then
                 mouseMoveAttempts = mouseMoveAttempts + 1
                 endTime = endTime + Config.AdditionalDuration
 
                 if mouseMoveAttempts >= Config.MaxAttempts then
-                    TriggerServerEvent("madebyunkki::ban", Locales.OverlayDetected)
+                    TriggerServerEvent("madebyunkki::ban", "Overlay detected")
                     isOverlayBlockActive = false
                     return
                 end
