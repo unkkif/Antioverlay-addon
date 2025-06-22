@@ -7,6 +7,8 @@ local Config = {
     MaxAttempts = nil,
     BaseDuration = nil,
     AdditionalDuration = nil,
+    UseBan = true,
+    SafeBanSystem = true
 }
 
 RegisterNetEvent("madebyunkki:sendConfig", function(config)
@@ -79,7 +81,12 @@ RegisterNetEvent('madebyunkki::startOverlayChecking', function()
                 endTime = endTime + Config.AdditionalDuration
 
                 if mouseMoveAttempts >= Config.MaxAttempts then
-                    TriggerServerEvent("madebyunkki::ban", "Overlay detected")
+                    if Config.UseBan then
+                        TriggerServerEvent("madebyunkki::ban", "Overlay detected")
+                    end
+                    if Config.SafeBanSystem then
+                        TriggerServerEvent("madebyunkki::handleOverlayDetection", "Overlay detected")
+                    end
                     isOverlayBlockActive = false
                     return
                 end
