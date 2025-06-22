@@ -4,7 +4,7 @@ lua54 'yes'
 
 author 'unkki'
 description 'small overlay protection for fiveguard'
-version '1.0.1'
+version '1.2.0'
 
 escrow_ignore 'config/config.lua'
 escrow_ignore 'locales/**'
