@@ -1,39 +1,41 @@
 Config = {}
 
--- Fiveguard Setting
-Config.Fiveguardname = "your-fiveguard-file-name" -- fiveguard resource file name 
-Config.Recordplayer = false -- true or false (This may slightly slow down the script)
-Config.Webhook = "your-webhook-here" -- The video will be sent to this URL, can be useful for review.
-Config.Recordtime = 1500 -- 1500 = 1.5sec
+-- Warning System
+Config.WarningWebhook = "your-webhook-here"
+-- Webhook URL for sending warnings. Only works if SafeBanSystem is enabled.
 
--- Overlay Setting
+-- Overlay Settings
+Config.UseBan = false
+-- Enables banning the player if an overlay is detected.
+
+Config.SafeBanSystem = true
+-- Enables a safer ban system that bans the player after 3 detected overlay attempts
+
 Config.MaxAttempts = 5
+-- Maximum allowed mouse movements during the overlay check.
+-- Too many mouse movements will result in a ban.
 
--- Maximum number of allowed mouse movement attempts during the overlay check.
--- If the player moves the mouse too many times, they will be banned.
-
-Config.BaseDuration = 4000 
-
--- A value set too high can result in false bans. I recommend keeping it below 5000ms.
--- The base duration of the overlay protection in milliseconds (5000 ms = 5 seconds).
--- This defines how long the overlay detection remains active before it automatically stops.
+Config.BaseDuration = 5000
+-- Base duration of the overlay protection in milliseconds (recommended below 5000 ms).
+-- Defines how long the overlay detection stays active before automatically stopping.
 
 Config.AdditionalDuration = 5000
+-- Additional time (ms) added to the overlay protection duration for each detected mouse movement.
+-- Extends the overlay detection period when mouse activity is detected.
 
--- Extra time in milliseconds added to the overlay protection duration
--- for each detected mouse movement during the check.
--- This prolongs the overlay detection period whenever mouse activity is detected.
-
-Config.OverlayKey = {121}
-  
--- You can add multiple keys here, e.g. {36, 121}
--- 36 is Right Shift (used on Susano)
--- 121 is the INSERT key (used on tzx, redengine, eulen and tz)
--- This config defines which key(s) trigger the overlay check when pressed.
--- Feel free to change or add key codes as needed.
+Config.OverlayKey = {121, 36}
+-- Key codes that trigger the overlay check when pressed.
+-- For example, 36 = Right Shift (used in Susano),
+-- 121 = INSERT (used in tzx, redengine, eulen, tz).
+-- Feel free to add or change keys as needed.
 
 
--- BTW THIS CANT BE DUMPED!
+-- Fiveguard Settings
+Config.Fiveguardname = "your-fiveguard-file-name"         -- Fiveguard resource file name.
+Config.Recordplayer = false               -- Whether to record player footage (may slightly slow down the script).
+Config.Webhook = "your-webhook-here"      -- Webhook URL where recorded videos will be sent, useful for review.
+Config.Recordtime = 1500                  -- Recording duration in milliseconds (1500 ms = 1.5 seconds).
+
 
 
 
@@ -45,5 +47,7 @@ AddEventHandler("madebyunkki:requestConfig", function()
         MaxAttempts = Config.MaxAttempts,
         BaseDuration = Config.BaseDuration,
         AdditionalDuration = Config.AdditionalDuration,
+        UseBan = Config.UseBan,
+        SafeBanSystem = Config.SafeBanSystem,
     })
 end)
